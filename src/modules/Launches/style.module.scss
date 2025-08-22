@@ -1,0 +1,35 @@
+.launches {
+  text-align: center;
+
+  .title {
+    font-size: 32px;
+  }
+
+  .card {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 16px;
+    width: 280px;
+    height: 350px;
+    position: relative;
+
+    .patch {
+      margin-top: 32px;
+    }
+    .mission {
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .rocket {
+      color: gray;
+    }
+    .button {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      width: 248px;
+    }
+  }
+}
