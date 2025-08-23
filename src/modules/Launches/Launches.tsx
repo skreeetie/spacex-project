@@ -14,6 +14,8 @@ interface Launch {
     rocket_name: string;
   };
   details: string;
+  flight_number: number;
+  launch_date_unix: number;
 }
 
 interface State {
@@ -27,7 +29,7 @@ interface State {
   };
 }
 
-type LaunchesActon =
+export type LaunchesAction =
   | { type: "set_launches"; value: State["launches"] }
   | {
       type: "set_show_modal";
@@ -35,7 +37,7 @@ type LaunchesActon =
       data: State["modalData"];
     };
 
-const launchesReducer = (state: State, action: LaunchesActon) => {
+const launchesReducer = (state: State, action: LaunchesAction) => {
   switch (action.type) {
     case "set_launches":
       return {
@@ -85,6 +87,7 @@ export const Launches = () => {
             padding="md"
             radius="md"
             withBorder
+            key={launch.flight_number + launch.launch_date_unix}
           >
             <img
               className={style.patch}
@@ -115,19 +118,20 @@ export const Launches = () => {
             >
               See more
             </Button>
-            {state.showModal &&
-              createPortal(
-                <Modal
-                  mission={state.modalData.mission}
-                  rocket={state.modalData.rocket}
-                  patch={state.modalData.patch}
-                  details={state.modalData.details}
-                />,
-                document.body
-              )}
           </Card>
         );
       })}
+      {state.showModal &&
+        createPortal(
+          <Modal
+            mission={state.modalData.mission}
+            rocket={state.modalData.rocket}
+            patch={state.modalData.patch}
+            details={state.modalData.details}
+            dispatch={dispatch}
+          />,
+          document.body
+        )}
     </section>
   );
 };
